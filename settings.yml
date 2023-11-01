@@ -9,12 +9,34 @@
 #                                      |______|                         #
 #########################################################################
 bot:
+  # Discord botunuzun tokeni
   token: ''
+  # Discord botunuzun application idsi
   id: ''
 guild:
+  # Discord sunucunuzun idsi
   id: ''
 settings:
+  departmentName: 'LSPD'
+  departmentLogo: 'https://static.wikia.nocookie.net/nopixel/images/4/43/LSPD3.png'
+  departmentBanner: 'https://forum.cfx.re/uploads/default/original/4X/f/7/e/f7e79012c44e49af0a8f38dbb0d70dc324f3f9a7.png'
+  departmentColor: '#0000ff'
   roles:
+    # Rütbe rollerinin idleri
     officers: ['', '']
   channels:
+    # Log kanalının idsi
     log: ''
+  # Mesaj içerikelrinde kulanılan emojiler, 📋 şeklinde, :emojiAdı: şeklinde veya idsiyle kullanılabilir.
+  emojis:
+    department: '👮'
+    on: '🟩'
+    off: '🟥'
+    warning: '⚠️'
+    info: '📋'
+    clock: '⏲️'
+commands:
+    # Aktif mesaideki üyeleri gösteren komut
+    activeDuty:
+      # Bu komutu kullanabilmek için gereken rol
+      requiredRole: ''
