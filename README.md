@@ -3,9 +3,9 @@
 ## ✨Latest Updates
 
 v1.0
-  🇹🇷
+  - 🇹🇷
     - Mesaideki kullanıcı sayıları artık discord botunun oynuyor kısmında görüntülenebilir.
-  🇺🇸
+  - 🇺🇸
     - The number of users on shift can now be displayed in the playing section of the discord bot.
 
 ## 🚧 | Prerequisites
