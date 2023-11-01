@@ -16,6 +16,11 @@ const departmentColor = config.settings.departmentColor;
 
 client.on('ready', async () => {
     console.log('Bot is ready.');
+    let onDutyPoliceCount = croxydb.has(`mesaidekiler`) ? await croxydb.get(`mesaidekiler`).length : 0;
+    client.user.setPresence({
+        activities: [{ name: `${onDutyPoliceCount} Memur mesaide!`, type: ActivityType.Playing }],
+        status: 'dnd',
+    });
 });
 
 client.on('interactionCreate', async interaction => {
@@ -275,6 +280,12 @@ client.on('interactionCreate', async interaction => {
                 .setImage(departmentBanner)
 
             logChannel.send({ embeds: [logEmbed] });
+
+            let onDutyPoliceCount = croxydb.has(`mesaidekiler`) ? await croxydb.get(`mesaidekiler`).length : 0;
+            await client.user.setPresence({
+                activities: [{ name: `${onDutyPoliceCount} Memur mesaide!`, type: ActivityType.Playing }],
+                status: 'dnd',
+            });
 
             await interaction.reply({ embeds: [girEmbed], ephemeral: true });
         }
