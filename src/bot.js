@@ -6,7 +6,7 @@ const { readdirSync } = require('fs');
 const client = new Client({ intents: ['Guilds', 'GuildMessages', 'MessageContent', 'GuildMembers', 'GuildPresences'] });
 const rest = new REST({ version: '10' }).setToken(config.bot.token);
 const croxydb = require("croxydb");
-croxydb.setFolder("/Database/");
+croxydb.setFolder("../database/");
 
 const departmentName = config.settings.departmentName;
 const departmentLogo = config.settings.departmentLogo;
@@ -15,7 +15,7 @@ const departmentColor = config.settings.departmentColor;
 
 
 client.on('ready', async () => {
-    console.log('Bot is ready.');
+    console.log('Bot aktif.');
     let onDutyPoliceCount = croxydb.has(`mesaidekiler`) ? await croxydb.get(`mesaidekiler`).length : 0;
     client.user.setPresence({
         activities: [{ name: `${onDutyPoliceCount} Memur mesaide!`, type: ActivityType.Playing }],
@@ -159,11 +159,19 @@ client.on('interactionCreate', async interaction => {
             if (option === 'ekle') {
                 await croxydb.set(`toplamMesai_${target.id}`, String(Number(await croxydb.get(`toplamMesai_${target.id}`) || 0) + totalMs));
 
+                const targetDmEmbed = new EmbedBuilder()
+                    .setAuthor({ name: departmentName + ' MESAI SISTEMI', iconURL: departmentLogo })
+                    .setColor('Green')
+                    .setDescription(`*Merhabalar, <@${interaction.user.id}> Tarafından Toplam Mesai Sürenize Ekleme Yapıldı.\nEklenen süre ${timeDifference2(totalMs)}`)
+                    .setImage(departmentBanner)
+
+                await target.send({ embeds: [targetDmEmbed] });
+
                 const logChannel = client.channels.cache.get(config.settings.channels.log);
                 const logEmbed = new EmbedBuilder()
                     .setAuthor({ name: departmentName + ' MESAI AYARLAMA LOG', iconURL: departmentLogo })
                     .setColor('Green')
-                    .setDescription(`\`AYARLAYAN YONETICI:\` <@${interaction.user.id}>\n\`AYARLANAN KULLANICI:\` <@${target.id}>\n\`AYARLANAN KULLANICININ ROZETI:\` ${getMemberBadge(interaction.member)}\n\`AYARLANAN MESAISI:\` +${time}`)
+                    .setDescription(`\`AYARLAYAN YONETICI:\` <@${interaction.user.id}>\n\`AYARLANAN KULLANICI:\` <@${target.id}>\n\`AYARLANAN KULLANICININ ROZETI:\` ${getMemberBadge(target.member)}\n\`AYARLANAN MESAISI:\` +${time}`)
                     .setImage(departmentBanner)
 
                 logChannel.send({ embeds: [logEmbed] });
@@ -174,11 +182,19 @@ client.on('interactionCreate', async interaction => {
                 if (totalOnDutyTime < totalMs) return interaction.reply({ content: 'Kullanıcının Mesai Süresi Bu Kadar Ayarlanamaz.', ephemeral: true });
                 await croxydb.set(`toplamMesai_${target.id}`, String(totalOnDutyTime - totalMs));
 
+                const targetDmEmbed = new EmbedBuilder()
+                    .setAuthor({ name: departmentName + ' MESAI SISTEMI', iconURL: departmentLogo })
+                    .setColor('Green')
+                    .setDescription(`*Merhabalar, <@${interaction.user.id}> Tarafından Toplam Mesai Sürenizden Çıkarma Yapıldı.\nÇıkarılan süre ${timeDifference2(totalMs)}`)
+                    .setImage(departmentBanner)
+
+                await target.send({ embeds: [targetDmEmbed] });
+
                 const logChannel = client.channels.cache.get(config.settings.channels.log);
                 const logEmbed = new EmbedBuilder()
                     .setAuthor({ name: departmentName + ' MESAI AYARLAMA LOG', iconURL: departmentLogo })
                     .setColor('Green')
-                    .setDescription(`\`AYARLAYAN YONETICI:\` <@${interaction.user.id}>\n\`AYARLANAN KULLANICI:\` <@${target.id}>\n\`AYARLANAN KULLANICININ ROZETI:\` ${getMemberBadge(interaction.member)}\n\`AYARLANAN MESAISI:\` -${time}`)
+                    .setDescription(`\`AYARLAYAN YONETICI:\` <@${interaction.user.id}>\n\`AYARLANAN KULLANICI:\` <@${target.id}>\n\`AYARLANAN KULLANICININ ROZETI:\` ${getMemberBadge(target.member)}\n\`AYARLANAN MESAISI:\` -${time}`)
                     .setImage(departmentBanner)
 
                 logChannel.send({ embeds: [logEmbed] });
@@ -187,11 +203,19 @@ client.on('interactionCreate', async interaction => {
             } else if (option === 'duzelt') {
                 await croxydb.set(`toplamMesai_${target.id}`, String(totalMs));
 
+                const targetDmEmbed = new EmbedBuilder()
+                    .setAuthor({ name: departmentName + ' MESAI SISTEMI', iconURL: departmentLogo })
+                    .setColor('Green')
+                    .setDescription(`*Merhabalar, <@${interaction.user.id}> Tarafından Toplam Mesai Süreniz Düzeltildi.\nYeni toplam mesai süreniz ${timeDifference2(totalMs)}`)
+                    .setImage(departmentBanner)
+
+                await target.send({ embeds: [targetDmEmbed] });
+
                 const logChannel = client.channels.cache.get(config.settings.channels.log);
                 const logEmbed = new EmbedBuilder()
                     .setAuthor({ name: departmentName + ' MESAI AYARLAMA LOG', iconURL: departmentLogo })
                     .setColor('Green')
-                    .setDescription(`\`AYARLAYAN YONETICI:\` <@${interaction.user.id}>\n\`AYARLANAN KULLANICI:\` <@${target.id}>\n\`AYARLANAN KULLANICININ ROZETI:\` ${getMemberBadge(interaction.member)}\n\`AYARLANAN MESAISI:\` ${time}`)
+                    .setDescription(`\`AYARLAYAN YONETICI:\` <@${interaction.user.id}>\n\`AYARLANAN KULLANICI:\` <@${target.id}>\n\`AYARLANAN KULLANICININ ROZETI:\` ${getMemberBadge(target.member)}\n\`AYARLANAN MESAISI:\` ${time}`)
                     .setImage(departmentBanner)
 
                 logChannel.send({ embeds: [logEmbed] });
@@ -217,6 +241,20 @@ client.on('interactionCreate', async interaction => {
                 croxydb.delete(`mesaidekiler`, target.id);
                 croxydb.delete(`mesaiGiris_${target.id}`);
 
+                let onDutyPoliceCount = croxydb.has(`mesaidekiler`) ? await croxydb.get(`mesaidekiler`).length : 0;
+                await client.user.setPresence({
+                    activities: [{ name: `${onDutyPoliceCount} Memur mesaide!`, type: ActivityType.Playing }],
+                    status: 'dnd',
+                });
+
+                const targetDmEmbed = new EmbedBuilder()
+                    .setAuthor({ name: departmentName + ' MESAI SISTEMI', iconURL: departmentLogo })
+                    .setColor('Red')
+                    .setDescription(`*Merhabalar, <@${interaction.user.id}> Tarafından Mesainiz Bitirildi. Lütfen Yeniden Mesaiye Giriş Yapınız.*\n\n${config.settings.emojis.clock} ∙ \`MESAI BITIRME ZAMANIN:\` <t:${Math.floor(Date.now() / 1000)}:R>\n\n${config.settings.emojis.warning} ∙ Unutmayınız Emek Olmadan, Yemek Olmaz.`)
+                    .setImage(departmentBanner)
+
+                await target.send({ embeds: [targetDmEmbed] });
+
                 const logChannel = client.channels.cache.get(config.settings.channels.log);
                 const logEmbed = new EmbedBuilder()
                     .setAuthor({ name: departmentName + ' MESAI BITIRME LOG', iconURL: departmentLogo })
@@ -231,6 +269,20 @@ client.on('interactionCreate', async interaction => {
                 croxydb.delete(`mesaiDurumu_${target.id}`);
                 croxydb.delete(`mesaidekiler`, target.id);
                 croxydb.delete(`mesaiGiris_${target.id}`);
+
+                let onDutyPoliceCount = croxydb.has(`mesaidekiler`) ? await croxydb.get(`mesaidekiler`).length : 0;
+                await client.user.setPresence({
+                    activities: [{ name: `${onDutyPoliceCount} Memur mesaide!`, type: ActivityType.Playing }],
+                    status: 'dnd',
+                });
+
+                const targetDmEmbed = new EmbedBuilder()
+                    .setAuthor({ name: departmentName + ' MESAI SISTEMI', iconURL: departmentLogo })
+                    .setColor('Red')
+                    .setDescription(`*Merhabalar, <@${interaction.user.id}> Tarafından Mesainiz Bitirildi. Lütfen Yeniden Mesaiye Giriş Yapınız.*\n\n${config.settings.emojis.clock} ∙ \`MESAI BITIRME ZAMANIN:\` <t:${Math.floor(Date.now() / 1000)}:R>\n\n${config.settings.emojis.warning} ∙ Unutmayınız Emek Olmadan, Yemek Olmaz.`)
+                    .setImage(departmentBanner)
+
+                await target.send({ embeds: [targetDmEmbed] });
 
                 const logChannel = client.channels.cache.get(config.settings.channels.log);
                 const logEmbed = new EmbedBuilder()
@@ -319,6 +371,12 @@ client.on('interactionCreate', async interaction => {
             croxydb.delete(`mesaiDurumu_${interaction.user.id}`);
             croxydb.delete(`mesaidekiler`, interaction.user.id);
             croxydb.delete(`mesaiGiris_${interaction.user.id}`);
+
+            let onDutyPoliceCount = croxydb.has(`mesaidekiler`) ? await croxydb.get(`mesaidekiler`).length : 0;
+            await client.user.setPresence({
+                activities: [{ name: `${onDutyPoliceCount} Memur mesaide!`, type: ActivityType.Playing }],
+                status: 'dnd',
+            });
 
             await interaction.reply({ embeds: [cikEmbed], ephemeral: true });
         }
