@@ -3,9 +3,10 @@
 ## ✨Latest Updates
 
 v1.0
-
-- 🇹🇷 Mesaideki kullanıcı sayıları artık discord botunun oynuyor kısmında görüntülenebilir.
-- 🇺🇸 The number of users on shift can now be displayed in the playing section of the discord bot.
+  🇹🇷
+    - Mesaideki kullanıcı sayıları artık discord botunun oynuyor kısmında görüntülenebilir.
+  🇺🇸
+    - The number of users on shift can now be displayed in the playing section of the discord bot.
 
 ## 🚧 | Prerequisites
 
@@ -13,7 +14,7 @@ v1.0
 
 ## 📝 | Tutorial
 
-> The `config.js` file should be configured first.
+> The `settings.yml` file should be configured first.
 
 Install all dependencies and deploy Slash Commands
 ```sh
@@ -30,8 +31,6 @@ If you have major coding issues with this bot, please join and ask for help.
 Soon
 
 ## ✨ | Contributors
-
-Contributions are always welcomed :D Make sure to follow [Contributing.md](/CONTRIBUTING.md)
 
 <a href="https://github.com/benardamorkoc/Police-Hub-Discord-Bot/graphs/contributors">
   <img src="https://contributors-img.web.app/image?repo=benardamorkoc/Police-Hub-Discord-Bot" />
