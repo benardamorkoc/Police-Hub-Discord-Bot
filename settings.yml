@@ -13,6 +13,16 @@ bot:
   token: ''
   # Discord botunuzun application idsi
   id: ''
+  # Discord botunun durum kısmı
+  status:
+    # Discord botunun açıklma kısmındaki event; playing = Oynuyor, streaming = Yayında, listening = Dinliyor, watching = İzliyor, competing = Yarışmada yarışıyor.
+    activity: 'streaming'
+    # Discord botunun açıklama yazısı; %onDutyPolice% yazarak aktif mesaideki memurların sayısını gösterebilirsiniz.
+    text: '%onDutyPolice% kişi şuanda mesaide!'
+    # Discord botunun açıklma kısmındaki event streaming olarak ayarlanırsa aşağıdaki twitch kısmını doldurunuz.
+    twitch: 'https://www.twitch.tv/example'
+    # Discord botunun aktiflik kısmı; online = Aktif, idle = Boşta, dnd = Rahatsız Etmeyin, invisible = Çevrimdışı.
+    status: 'idle'
 guild:
   # Discord sunucunuzun idsi
   id: ''
