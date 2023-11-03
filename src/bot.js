@@ -557,12 +557,12 @@ async function setBotPresence(client) {
 
     if (config.bot.status.activity === 'streaming' || config.bot.status.activity === 'STREAMING') {
         await client.user.setPresence({
-            activities: [{ name: `${config.bot.status.activityText}`.replace('%onDutyPolice%', onDutyPoliceCount), type: presenceType, url: config.bot.status.activityURL }],
+            activities: [{ name: `${config.bot.status.text}`.replace('%onDutyPolice%', onDutyPoliceCount), type: presenceType, url: config.bot.status.twitch }],
             status: presenceStatus,
         });
     } else {
         await client.user.setPresence({
-            activities: [{ name: `${config.bot.status.activityText}`.replace('%onDutyPolice%', onDutyPoliceCount), type: presenceType }],
+            activities: [{ name: `${config.bot.status.text}`.replace('%onDutyPolice%', onDutyPoliceCount), type: presenceType }],
             status: presenceStatus,
         });
     }
