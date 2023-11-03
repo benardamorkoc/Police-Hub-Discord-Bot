@@ -6,7 +6,7 @@ const { readdirSync } = require('fs');
 const client = new Client({ intents: ['Guilds', 'GuildMessages', 'MessageContent', 'GuildMembers', 'GuildPresences'] });
 const rest = new REST({ version: '10' }).setToken(config.bot.token);
 const croxydb = require("croxydb");
-croxydb.setFolder("../database/");
+croxydb.setFolder('./database');
 
 const departmentName = config.settings.departmentName;
 const departmentLogo = config.settings.departmentLogo;
@@ -15,12 +15,8 @@ const departmentColor = config.settings.departmentColor;
 
 
 client.on('ready', async () => {
-    console.log('Bot aktif.');
-    let onDutyPoliceCount = croxydb.has(`mesaidekiler`) ? await croxydb.get(`mesaidekiler`).length : 0;
-    client.user.setPresence({
-        activities: [{ name: `${onDutyPoliceCount} Memur mesaide!`, type: ActivityType.Playing }],
-        status: 'dnd',
-    });
+    console.log("Bot aktif!");
+    setBotPresence(client);
 });
 
 client.on('interactionCreate', async interaction => {
@@ -241,11 +237,7 @@ client.on('interactionCreate', async interaction => {
                 croxydb.delete(`mesaidekiler`, target.id);
                 croxydb.delete(`mesaiGiris_${target.id}`);
 
-                let onDutyPoliceCount = croxydb.has(`mesaidekiler`) ? await croxydb.get(`mesaidekiler`).length : 0;
-                await client.user.setPresence({
-                    activities: [{ name: `${onDutyPoliceCount} Memur mesaide!`, type: ActivityType.Playing }],
-                    status: 'dnd',
-                });
+                setBotPresence(client);
 
                 const targetDmEmbed = new EmbedBuilder()
                     .setAuthor({ name: departmentName + ' MESAI SISTEMI', iconURL: departmentLogo })
@@ -270,11 +262,7 @@ client.on('interactionCreate', async interaction => {
                 croxydb.delete(`mesaidekiler`, target.id);
                 croxydb.delete(`mesaiGiris_${target.id}`);
 
-                let onDutyPoliceCount = croxydb.has(`mesaidekiler`) ? await croxydb.get(`mesaidekiler`).length : 0;
-                await client.user.setPresence({
-                    activities: [{ name: `${onDutyPoliceCount} Memur mesaide!`, type: ActivityType.Playing }],
-                    status: 'dnd',
-                });
+                setBotPresence(client);
 
                 const targetDmEmbed = new EmbedBuilder()
                     .setAuthor({ name: departmentName + ' MESAI SISTEMI', iconURL: departmentLogo })
@@ -333,11 +321,7 @@ client.on('interactionCreate', async interaction => {
 
             logChannel.send({ embeds: [logEmbed] });
 
-            let onDutyPoliceCount = croxydb.has(`mesaidekiler`) ? await croxydb.get(`mesaidekiler`).length : 0;
-            await client.user.setPresence({
-                activities: [{ name: `${onDutyPoliceCount} Memur mesaide!`, type: ActivityType.Playing }],
-                status: 'dnd',
-            });
+            setBotPresence(client)
 
             await interaction.reply({ embeds: [girEmbed], ephemeral: true });
         }
@@ -372,11 +356,7 @@ client.on('interactionCreate', async interaction => {
             croxydb.delete(`mesaidekiler`, interaction.user.id);
             croxydb.delete(`mesaiGiris_${interaction.user.id}`);
 
-            let onDutyPoliceCount = croxydb.has(`mesaidekiler`) ? await croxydb.get(`mesaidekiler`).length : 0;
-            await client.user.setPresence({
-                activities: [{ name: `${onDutyPoliceCount} Memur mesaide!`, type: ActivityType.Playing }],
-                status: 'dnd',
-            });
+            setBotPresence(client);
 
             await interaction.reply({ embeds: [cikEmbed], ephemeral: true });
         }
@@ -559,6 +539,33 @@ function timeDifference2(ms) {
     var sec = Math.floor((minutesms)/(1000));
     var t = days + " Gün " + hours + " Saat " + minutes + " Dakika " + sec + " Saniye";
     return t;
+}
+
+async function setBotPresence(client) {
+    let onDutyPoliceCount = croxydb.has(`mesaidekiler`) ? await croxydb.get(`mesaidekiler`).length : 0;
+    let presenceType = ActivityType.Playing;
+    let presenceStatus = 'online';
+    if (config.bot.status.activity === 'playing' || config.bot.status.activity === 'PLAYING') presenceType = ActivityType.Playing;
+    if (config.bot.status.activity === 'watching' || config.bot.status.activity === 'WATCHING') presenceType = ActivityType.Watching;
+    if (config.bot.status.activity === 'listening' || config.bot.status.activity === 'LISTENING') presenceType = ActivityType.Listening;
+    if (config.bot.status.activity === 'streaming' || config.bot.status.activity === 'STREAMING') presenceType = ActivityType.Streaming;
+    if (config.bot.status.activity === 'competing' || config.bot.status.activity === 'COMPETING') presenceType = ActivityType.Competing;
+    if (config.bot.status.status === 'online' || config.bot.status.status === 'ONLINE') presenceStatus = 'online';
+    if (config.bot.status.status === 'idle' || config.bot.status.status === 'IDLE') presenceStatus = 'idle';
+    if (config.bot.status.status === 'dnd' || config.bot.status.status === 'DND') presenceStatus = 'dnd';
+    if (config.bot.status.status === 'invisible' || config.bot.status.status === 'INVISIBLE') presenceStatus = 'invisible';
+
+    if (config.bot.status.activity === 'streaming' || config.bot.status.activity === 'STREAMING') {
+        await client.user.setPresence({
+            activities: [{ name: `${config.bot.status.activityText}`.replace('%onDutyPolice%', onDutyPoliceCount), type: presenceType, url: config.bot.status.activityURL }],
+            status: presenceStatus,
+        });
+    } else {
+        await client.user.setPresence({
+            activities: [{ name: `${config.bot.status.activityText}`.replace('%onDutyPolice%', onDutyPoliceCount), type: presenceType }],
+            status: presenceStatus,
+        });
+    }
 }
 
 function getMemberBadge(member) {
