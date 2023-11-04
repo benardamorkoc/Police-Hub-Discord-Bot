@@ -280,6 +280,8 @@ client.on('interactionCreate', async interaction => {
                     .setImage(departmentBanner)
 
                 logChannel.send({ embeds: [logEmbed] });
+
+                await interaction.reply({ content: 'Kullanıcının Mesai Süresi Başarıyla Ayarlandı.', ephemeral: true });
             } else {
                 return interaction.reply({ content: 'Geçersiz Seçenek.', ephemeral: true });
             }
