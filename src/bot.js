@@ -86,7 +86,7 @@ client.on('interactionCreate', async interaction => {
         }
 
         if (interaction.commandName === 'mesai-sıfırla') {
-            if (!interaction.member.permissions.has('ADMINISTRATOR')) return interaction.reply({ content: 'Bu Komutu Kullanabilmek İçin \`Yönetici\` Yetkisine Sahip Olmalısın.', ephemeral: true });
+            if (!interaction.member.permissions.has(PermissionsBitField.Flags.Administrator)) return interaction.reply({ content: 'Bu Komutu Kullanabilmek İçin \`Yönetici\` Yetkisine Sahip Olmalısın.', ephemeral: true });
             const user = interaction.options.get('kullanıcı') ?? false;
             const type = user ? 'user' : 'all';
 
@@ -129,7 +129,7 @@ client.on('interactionCreate', async interaction => {
         }
 
         if (interaction.commandName === 'mesai-ayarla') {
-            if (!interaction.member.permissions.has('ADMINISTRATOR')) return interaction.reply({ content: 'Bu Komutu Kullanabilmek İçin \`Yönetici\` Yetkisine Sahip Olmalısın.', ephemeral: true });
+            if (!interaction.member.permissions.has(PermissionsBitField.Flags.Administrator)) return interaction.reply({ content: 'Bu Komutu Kullanabilmek İçin \`Yönetici\` Yetkisine Sahip Olmalısın.', ephemeral: true });
             const option = interaction.options.getString('seçenek');
             const target = interaction.options.getUser('kullanıcı');
             const time = interaction.options.getString('mesai_süresi');
@@ -223,7 +223,7 @@ client.on('interactionCreate', async interaction => {
         }
 
         if (interaction.commandName === 'mesai-bitir') {
-            if (!interaction.member.permissions.has('ADMINISTRATOR')) return interaction.reply({ content: 'Bu Komutu Kullanabilmek İçin \`Yönetici\` Yetkisine Sahip Olmalısın.', ephemeral: true });
+            if (!interaction.member.permissions.has(PermissionsBitField.Flags.Administrator)) return interaction.reply({ content: 'Bu Komutu Kullanabilmek İçin \`Yönetici\` Yetkisine Sahip Olmalısın.', ephemeral: true });
             const target = interaction.options.getUser('kullanıcı');
             const option = interaction.options.getString('seçenek');
             const reason = interaction.options.getString('sebep') ?? 'Sebep Belirtilmedi.';
