@@ -40,6 +40,7 @@ If you have major coding issues with this bot, please join and ask for help.
 <div align="center">
   <a href="https://www.youtube.com/watch?v=ki-y4GhhjS"><img src="https://img.youtube.com/vi/ki-y4GhhjS/0.jpg" alt="IMAGE ALT TEXT"></a>
 </div>
+[![TÜRKİYEDE İLK FİVEM DİSCORD MESAİ BOTU!✨](https://img.youtube.com/vi/ki-y4GhhjS0/0.jpg)](https://www.youtube.com/watch?v=ki-y4GhhjS0 "TÜRKİYEDE İLK FİVEM DİSCORD MESAİ BOTU!✨")
 
 ## ✨ | Contributors
 
