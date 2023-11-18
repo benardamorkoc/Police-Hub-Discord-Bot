@@ -29,6 +29,7 @@ If you have major coding issues with this bot, please join and ask for help.
 ## 📸 | Screenshots
 
 https://youtu.be/ki-y4GhhjS0
+[![Everything Is AWESOME](https://img.youtube.com/vi/ki-y4GhhjS0/0.jpg)](https://youtu.be/ki-y4GhhjS)
 
 ## ✨ | Contributors
 
