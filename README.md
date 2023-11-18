@@ -28,7 +28,7 @@ If you have major coding issues with this bot, please join and ask for help.
 
 ## 📸 | Screenshots
 
-Soon
+https://youtu.be/ki-y4GhhjS0
 
 ## ✨ | Contributors
 
