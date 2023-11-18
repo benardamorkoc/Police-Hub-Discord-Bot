@@ -1,5 +1,14 @@
 <h1 align="center"><img src="./assets/logo.gif" width="30px"> Fivem Police Hub Discord Bot <img src="./assets/logo.gif" width="30px"></h1>
 
+## ⚠️Warning
+
+- 🇹🇷
+    - Bot yeni alt yapısı ile bizim tarafımızdan hostlanmaktadır botu sunucuna eklemek için [Tıkla!](https://discord.com/api/oauth2/authorize?client_id=1075315958043901964&permissions=8&scope=applications.commands%20bot)
+    - Bot artık github üzerinden güncelleme almayacaktır!
+- 🇺🇸
+    - The bot is hosted by us with its new infrastructure [Click Here!](https://discord.com/api/oauth2/authorize?client_id=1075315958043901964&permissions=8&scope=applications.commands%20bot) to add the bot to your server
+    - The bot will no longer receive updates via github!
+
 ## ✨Latest Updates
 
 v1.0
@@ -28,8 +37,9 @@ If you have major coding issues with this bot, please join and ask for help.
 
 ## 📸 | Screenshots
 
-https://youtu.be/ki-y4GhhjS0
-[![Everything Is AWESOME](https://img.youtube.com/vi/ki-y4GhhjS0/0.jpg)](https://youtu.be/ki-y4GhhjS "Everything Is AWESOME")
+<div align="center">
+  <a href="https://www.youtube.com/watch?v=ki-y4GhhjS"><img src="https://img.youtube.com/vi/ki-y4GhhjS/0.jpg" alt="IMAGE ALT TEXT"></a>
+</div>
 
 ## ✨ | Contributors
 
