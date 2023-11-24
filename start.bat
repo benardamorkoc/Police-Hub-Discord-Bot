@@ -1,5 +1,5 @@
 @echo off
-title Discord Hesabım = _aarda
+title BCSO
 cls
 :a
 node src/bot.js
