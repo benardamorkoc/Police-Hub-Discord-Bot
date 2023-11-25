@@ -101,7 +101,7 @@ client.on('interactionCreate', async interaction => {
                 croxydb.delete(`ilkMesaiTimestamp_${targetID}`);
                 croxydb.delete(`ilkMesaiTarihi_${targetID}`);
 
-                await croxydb.has(`mesaidekiler`) ? await croxydb.set(`mesaidekiler`, String(Number(await croxydb.get(`mesaidekiler`) - 1))) : await croxydb.set(`mesaidekiler`, 0);
+                await croxydb.has(`mesaidekiler`) ? await croxydb.set(`mesaidekiler`, String(Number(await croxydb.get(`mesaidekiler`) - 1))) : await croxydb.set(`mesaidekiler`, "0");
 
                 const logChannel = client.channels.cache.get(config.settings.channels.log);
                 const logEmbed = new EmbedBuilder()
@@ -240,7 +240,7 @@ client.on('interactionCreate', async interaction => {
                 croxydb.delete(`mesaiDurumu_${target.id}`);
                 croxydb.delete(`mesaiGiris_${target.id}`);
 
-                await croxydb.has(`mesaidekiler`) ? await croxydb.set(`mesaidekiler`, String(Number(await croxydb.get(`mesaidekiler`) - 1))) : await croxydb.set(`mesaidekiler`, 0);
+                await croxydb.has(`mesaidekiler`) ? await croxydb.set(`mesaidekiler`, String(Number(await croxydb.get(`mesaidekiler`) - 1))) : await croxydb.set(`mesaidekiler`, "0");
 
                 setBotPresence(client);
 
@@ -266,7 +266,7 @@ client.on('interactionCreate', async interaction => {
                 croxydb.delete(`mesaiDurumu_${target.id}`);
                 croxydb.delete(`mesaiGiris_${target.id}`);
 
-                await croxydb.has(`mesaidekiler`) ? await croxydb.set(`mesaidekiler`, String(Number(await croxydb.get(`mesaidekiler`) - 1))) : await croxydb.set(`mesaidekiler`, 0);
+                await croxydb.has(`mesaidekiler`) ? await croxydb.set(`mesaidekiler`, String(Number(await croxydb.get(`mesaidekiler`) - 1))) : await croxydb.set(`mesaidekiler`, "0");
 
                 setBotPresence(client);
 
@@ -313,7 +313,7 @@ client.on('interactionCreate', async interaction => {
             croxydb.set(`mesaiDurumu_${interaction.user.id}`, true);
             croxydb.set(`mesaiGiris_${interaction.user.id}`, Math.floor(Date.now() / 1000));
 
-            await croxydb.has(`mesaidekiler`) ? await croxydb.set(`mesaidekiler`, String(Number(await croxydb.get(`mesaidekiler`) + 1))) : await croxydb.set(`mesaidekiler`, 0);
+            await croxydb.has(`mesaidekiler`) ? await croxydb.set(`mesaidekiler`, String(Number(await croxydb.get(`mesaidekiler`) + 1))) : await croxydb.set(`mesaidekiler`, "1");
 
             if (await !croxydb.get(`ilkMesaiDurumu_${interaction.user.id}`)) {
                 croxydb.set(`ilkMesaiDurumu_${interaction.user.id}`, true);
@@ -364,7 +364,7 @@ client.on('interactionCreate', async interaction => {
             croxydb.delete(`mesaiDurumu_${interaction.user.id}`);
             croxydb.delete(`mesaiGiris_${interaction.user.id}`);
 
-            await croxydb.has(`mesaidekiler`) ? await croxydb.set(`mesaidekiler`, String(Number(await croxydb.get(`mesaidekiler`) - 1))) : await croxydb.set(`mesaidekiler`, 0);
+            await croxydb.has(`mesaidekiler`) ? await croxydb.set(`mesaidekiler`, String(Number(await croxydb.get(`mesaidekiler`) - 1))) : await croxydb.set(`mesaidekiler`, "0");
 
             setBotPresence(client);
 
